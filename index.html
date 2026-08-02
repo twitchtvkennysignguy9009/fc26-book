@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FC 26 — THE TOURNAMENT OF 721</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { background: #000; color: #ddd; font-family: Calibri, 'Segoe UI', sans-serif; font-size: 15px; }
+::-webkit-scrollbar { width: 0 !important; height: 0 !important; display: none !important; }
+* { scrollbar-width: none; -ms-overflow-style: none; }
+.wrap { max-width: 1100px; margin: 0 auto; padding: 18px 14px 60px; }
+h1 { color: #ff3333; letter-spacing: 4px; text-align: center; font-size: 26px; margin: 10px 0 2px; }
+.tag { text-align: center; color: #d4a35a; font-size: 13px; letter-spacing: 2px; margin-bottom: 18px; }
+.champ-banner { border: 3px solid #ffd700; border-radius: 12px; background: #14100a; text-align: center; padding: 14px; margin: 14px 0 22px; }
+.champ-banner .lb { color: #d4a35a; font-size: 12px; letter-spacing: 3px; }
+.champ-banner .nm { color: #ffd700; font-size: 30px; font-weight: bold; }
+h2 { color: #ffd700; font-size: 16px; letter-spacing: 3px; border-bottom: 2px solid #b8860b; padding-bottom: 6px; margin: 26px 0 12px; }
+.stat { color: #d4a35a; font-size: 14px; margin-bottom: 10px; }
+.stat b { color: #fff; }
+.bk { display: flex; gap: 14px; align-items: stretch; overflow-x: auto; padding-bottom: 6px; }
+.bk .col { flex: 1 1 0; min-width: 160px; display: flex; flex-direction: column; justify-content: space-around; }
+.bk h4 { color: #d4a35a; font-size: 11px; letter-spacing: 2px; text-align: center; margin-bottom: 6px; }
+.bk .match { background: #0a0a14; border: 2px solid #1a3a8a; border-radius: 6px; margin: 4px 0; overflow: hidden; }
+.bk .mt { padding: 6px 8px; color: #ddd; font-size: 13px; border-bottom: 1px solid #10101a; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.bk .mt:last-child { border-bottom: none; }
+.bk .mt .sd { color: #d4a35a; font-size: 10px; font-weight: bold; margin-right: 5px; }
+.bk .mt.w { background: #0a2f0a; color: #4dff77; font-weight: bold; }
+.bk .mt.l { color: #663333; text-decoration: line-through; }
+.bk .champbox { border: 3px solid #ffd700; border-radius: 8px; background: #14100a; text-align: center; padding: 16px 6px; color: #ffd700; font-weight: bold; font-size: 15px; }
+.row { display: flex; gap: 8px; padding: 4px 2px; border-bottom: 1px solid #10101a; font-size: 14px; align-items: baseline; flex-wrap: wrap; }
+.row .n { color: #888; min-width: 52px; font-weight: bold; }
+.row .t { color: #ff8888; }
+.row .t.claim { color: #7fd4ff; }
+.row .lg { color: #666; font-size: 11px; }
+.row .jk { color: #cc9955; font-size: 12px; font-style: italic; }
+.row .cv { color: #7fd4ff; font-size: 12px; font-weight: bold; }
+.hist .row .win { color: #4dff77; font-weight: bold; }
+.hist .row .loss { color: #ff5555; font-weight: bold; }
+table { width: 100%; border-collapse: collapse; margin-top: 6px; }
+th { color: #d4a35a; font-size: 11px; letter-spacing: 2px; text-align: left; padding: 6px 8px; border-bottom: 2px solid #b8860b; }
+td { padding: 5px 8px; border-bottom: 1px solid #10101a; color: #ddd; font-size: 13px; }
+td.w { color: #66ff99; font-weight: bold; } td.l { color: #ff5555; font-weight: bold; }
+td.rg { color: #ffd700; font-weight: bold; } td.st { color: #888; font-size: 11px; }
+.note { color: #666; font-size: 12px; margin: 8px 0; }
+.foot { text-align: center; color: #444; font-size: 11px; letter-spacing: 2px; margin-top: 40px; }
+.grave { max-height: 70vh; overflow-y: auto; border: 2px solid #1a3a8a; border-radius: 8px; padding: 8px 12px; background: #05050d; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>⚽ FC 26 — THE TOURNAMENT OF 721</h1>
+  <div class="tag">721 TEAMS · ONE SURVIVAL RACE · ONLY 16 MAKE THE BRACKET · ONE CHAMPION</div>
+  <div id="champ"></div>
+  <div id="status" class="stat"></div>
+  <div id="bracket"></div>
+  <div id="season"></div>
+  <div id="records"></div>
+  <div id="grave"></div>
+  <div class="foot">LIVE ON TWITCH — kennysignguy9009</div>
+</div>
+<script>
+const SEED_LAYOUT = [1, 16, 8, 9, 5, 12, 4, 13, 6, 11, 3, 14, 7, 10, 2, 15];
+let TEAMS_BY_ID = {}, TAGS = {}, TOTAL = 721;
+function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;'); }
+function tname(id) { const t = TEAMS_BY_ID[id]; return t ? t.name : String(id || '?').split(':').pop(); }
+function tleague(id) { const t = TEAMS_BY_ID[id]; return t ? t.league : ''; }
+function tagOf(id) { return TAGS[id] || null; }
+async function j(p) { try { return await (await fetch(p + '?v=' + Date.now())).json(); } catch (e) { return null; } }
+
+(async function main() {
+  const teams = await j('data/teams.json');
+  const state = await j('data/state.json');
+  const claims = await j('data/claims_state.json');
+  if (teams) {
+    (teams.nationals || []).forEach(n => { TEAMS_BY_ID['n:' + n.name] = { name: n.name, league: 'INTERNATIONAL TEAMS' }; });
+    (teams.clubs || []).forEach(c => { TEAMS_BY_ID['c:' + (c.league || '?') + ':' + c.name] = { name: c.name, league: c.league || 'Other' }; });
+    TOTAL = Object.keys(TEAMS_BY_ID).length || 721;
+  }
+  if (claims) (claims.claims || []).forEach(c => { if (c.teamId && c.viewer) TAGS[c.teamId] = c.viewer; });
+  if (!state || !state.draw) { document.getElementById('status').innerHTML = 'The tournament has not started yet.'; return; }
+
+  const elim = state.draw.eliminated || [];
+  const jokes = state.draw.jokes || [];
+  const slots = state.draw.slots || [];
+  const results = (state.results && state.results.t16) || {};
+  const alive = TOTAL - elim.length;
+  const seeded = slots.filter(Boolean).length;
+
+  // bracket helpers (same pairing as the book: 1v16, 8v9, 5v12, 4v13 / 6v11, 3v14, 7v10, 2v15)
+  const arr = SEED_LAYOUT.map(s => slots[s - 1] || null);
+  const winnerOf = (r, m) => results[r + '_' + m] || null;
+  function participant(r, m, side) { return r === 0 ? arr[2 * m + side] : winnerOf(r - 1, 2 * m + side); }
+  const tourChamp = winnerOf(3, 0);
+  const seedOf = id => { const i = slots.indexOf(id); return i < 0 ? null : i + 1; };
+
+  const season = state.season || null;
+  const beltHolder = season ? season.champion : tourChamp;
+
+  // CHAMPION banner
+  if (beltHolder) {
+    document.getElementById('champ').innerHTML =
+      '<div class="champ-banner"><div class="lb">' + (season ? 'SEASON ' + (season.seasonNum || 1) + ' — REIGNING CHAMPION' : '🏆 TOURNAMENT CHAMPION 🏆') + '</div>' +
+      '<div class="nm">' + esc(tname(beltHolder)) + (tagOf(beltHolder) ? ' <span style="font-size:16px;color:#7fd4ff;">[' + esc(tagOf(beltHolder)) + ']</span>' : '') + '</div></div>';
+  }
+
+  // status line
+  document.getElementById('status').innerHTML =
+    'TEAMS <b>' + TOTAL + '</b> &nbsp;·&nbsp; ELIMINATED <b>' + elim.length + '</b> &nbsp;·&nbsp; STILL ALIVE <b>' + alive + '</b>' +
+    (seeded ? ' &nbsp;·&nbsp; SEEDED <b>' + seeded + '/16</b>' : '');
+
+  // bracket
+  if (seeded === 16) {
+    const names = ['ROUND OF 16', 'QUARTER-FINALS', 'SEMI-FINALS', 'THE FINAL'];
+    let h = '<h2>📖 CHAPTER 1 — THE TOURNAMENT OF 16</h2><div class="bk">';
+    for (let r = 0; r < 4; r++) {
+      h += '<div class="col"><h4>' + names[r] + '</h4>';
+      const matches = 16 >> (r + 1);
+      for (let m = 0; m < matches; m++) {
+        const pa = participant(r, m, 0), pb = participant(r, m, 1), w = winnerOf(r, m);
+        h += '<div class="match">' + [pa, pb].map(pid => {
+          if (!pid) return '<div class="mt" style="color:#444;">— TBD —</div>';
+          const cls = w ? (w === pid ? ' w' : ' l') : '';
+          return '<div class="mt' + cls + '"><span class="sd">#' + (seedOf(pid) || '') + '</span>' + esc(tname(pid)) +
+            (tagOf(pid) ? ' <span class="cv">[' + esc(tagOf(pid)) + ']</span>' : '') + '</div>';
+        }).join('') + '</div>';
+      }
+      h += '</div>';
+    }
+    h += '<div class="col"><h4>🏆 CHAMPION</h4><div class="champbox">' + (tourChamp ? esc(tname(tourChamp)) : 'WINNER LANDS HERE') + '</div></div></div>';
+    document.getElementById('bracket').innerHTML = h;
+  }
+
+  // season
+  if (season) {
+    let h = '<h2>📖 CHAPTER 2 — SEASON ' + (season.seasonNum || 1) + '</h2>' +
+      '<div class="stat">CHAMPION <b>' + esc(tname(season.champion)) + '</b> &nbsp;·&nbsp; DEFENSE #<b>' + ((season.history || []).length + 1) + '</b></div>' +
+      '<div class="hist">';
+    (season.history || []).slice().reverse().forEach((e, ix) => {
+      h += '<div class="row"><span class="n">#' + ((season.history || []).length - ix) + '</span>' +
+        '<span>' + (e.rematch ? '🔁 ' : '') + esc(tname(e.champion)) + ' vs ' + esc(tname(e.opponent)) + '</span>' +
+        (e.champWon ? '<span class="win">CHAMP RETAINED</span>' : '<span class="loss">NEW CHAMPION: ' + esc(tname(e.opponent)) + '</span>') + '</div>';
+    });
+    if (!(season.history || []).length) h += '<div class="note">No title matches yet — the season is just beginning.</div>';
+    h += '</div>';
+    document.getElementById('season').innerHTML = h;
+  }
+
+  // records — title matches only
+  const rec = {};
+  const R = id => rec[id] || (rec[id] = { w: 0, l: 0, defenses: 0, reigns: 0 });
+  if (tourChamp) R(tourChamp).reigns++;
+  if (season) (season.history || []).forEach(e => {
+    if (e.champWon) { R(e.champion).w++; R(e.opponent).l++; R(e.champion).defenses++; }
+    else { R(e.opponent).w++; R(e.champion).l++; R(e.opponent).reigns++; }
+  });
+  const ids = Object.keys(rec);
+  if (ids.length) {
+    ids.sort((a, b) => (rec[b].reigns - rec[a].reigns) || (rec[b].w - rec[a].w));
+    let h = '<h2>📖 CHAPTER 3 — WIN / LOSS RECORDS (TITLE MATCHES ONLY)</h2><table>' +
+      '<tr><th>TEAM</th><th>LEAGUE</th><th>W</th><th>L</th><th>DEFENSES</th><th>TITLE REIGNS</th><th>STATUS</th></tr>';
+    ids.forEach(id => {
+      const r = rec[id];
+      h += '<tr><td>' + esc(tname(id)) + (tagOf(id) ? ' <span class="cv">[' + esc(tagOf(id)) + ']</span>' : '') + '</td>' +
+        '<td style="color:#888;">' + esc(tleague(id)) + '</td>' +
+        '<td class="w">' + r.w + '</td><td class="l">' + r.l + '</td>' +
+        '<td class="rg">' + (r.defenses || '') + '</td><td class="rg">' + (r.reigns || '') + '</td>' +
+        '<td class="st">' + (id === beltHolder ? '👑 CHAMPION' : '') + '</td></tr>';
+    });
+    h += '</table>';
+    document.getElementById('records').innerHTML = h;
+  }
+
+  // the graveyard — every elimination, position numbers counting down from the full field
+  if (elim.length) {
+    let h = '<h2>☠ THE ELIMINATION RACE — THE FALLEN (' + elim.length + ')</h2>' +
+      '<div class="note">First team out finished #' + TOTAL + ' — the number IS the finishing position. Viewer-claimed teams show in blue.</div>' +
+      '<div class="grave">';
+    for (let i = elim.length - 1; i >= 0; i--) {
+      const id = elim[i], jk = jokes[i];
+      h += '<div class="row"><span class="n">#' + (TOTAL - i) + '</span>' +
+        '<span class="t' + (tagOf(id) ? ' claim' : '') + '">' + esc(tname(id)) +
+        (tagOf(id) ? ' <span class="cv">[' + esc(tagOf(id)) + ']</span>' : '') + '</span>' +
+        '<span class="lg">(' + esc(tleague(id)) + ')</span>' +
+        (jk ? '<span class="jk">— ' + esc(jk) + '</span>' : '') + '</div>';
+    }
+    h += '</div>';
+    document.getElementById('grave').innerHTML = h;
+  }
+})();
+</script>
+</body>
+</html>
