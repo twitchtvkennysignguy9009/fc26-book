@@ -1,118 +1,200 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FC 26 — THE TOURNAMENT OF 721</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FC 26 Book</title>
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
-html, body { background: #000; color: #ddd; font-family: Calibri, 'Segoe UI', sans-serif; font-size: 15px; }
+html, body { background: #000; color: #e6e6e6; font-family: Calibri, 'Segoe UI', sans-serif; font-size: 15px; }
+body { min-height: 100vh; }
 ::-webkit-scrollbar { width: 0 !important; height: 0 !important; display: none !important; }
 * { scrollbar-width: none; -ms-overflow-style: none; }
-.wrap { max-width: 1100px; margin: 0 auto; padding: 18px 14px 60px; }
-h1 { color: #ff3333; letter-spacing: 4px; text-align: center; font-size: 26px; margin: 10px 0 2px; }
-.tag { text-align: center; color: #d4a35a; font-size: 13px; letter-spacing: 2px; margin-bottom: 18px; }
-.champ-banner { border: 3px solid #ffd700; border-radius: 12px; background: #14100a; text-align: center; padding: 14px; margin: 14px 0 22px; }
+
+header { position: sticky; top: 0; z-index: 50; background: linear-gradient(to right,#0a0a14,#1a0a0a); border-bottom: 2px solid #1a3a8a; padding: 10px 16px; display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+header .brand { color: #ff3333; font-size: 18px; letter-spacing: 3px; font-weight: bold; text-shadow: 0 0 12px rgba(255,51,51,.5); }
+nav { display: flex; gap: 6px; flex-wrap: wrap; }
+nav button { background: #0a0a14; color: #cfd6e6; border: 1px solid #2a2a4a; padding: 6px 13px; border-radius: 4px; cursor: pointer; font-size: 13px; letter-spacing: 1px; font-family: inherit; }
+nav button:hover { border-color: #ff3333; color: #fff; }
+nav button.active { background: #1a140a; color: #ffd700; border-color: #663399; }
+.readonly { margin-left: auto; color: #888; font-size: 11px; letter-spacing: 2px; border: 1px solid #333; padding: 3px 9px; border-radius: 10px; }
+
+main { max-width: 1100px; margin: 0 auto; padding: 22px 18px 60px; }
+section { display: none; }
+section.active { display: block; animation: fade .15s ease-out; }
+@keyframes fade { from { opacity: 0; } to { opacity: 1; } }
+h1.page-title { color: #ff3333; font-size: 26px; letter-spacing: 3px; margin-bottom: 4px; }
+.page-sub { color: #d4a35a; font-size: 13px; letter-spacing: 2px; margin-bottom: 18px; }
+
+#cover.active { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; min-height: 70vh; }
+#cover .book { width: min(90vw,640px); padding: 50px 30px; border: 6px solid #1a0a02; border-radius: 8px 20px 20px 8px; background: linear-gradient(135deg,#5a3015,#3a1a08 50%,#1a0a02); box-shadow: -8px 0 26px rgba(0,0,0,.85), inset 5px 0 12px rgba(0,0,0,.7); cursor: pointer; }
+#cover h2 { color: #ff3333; font-size: 46px; letter-spacing: 6px; text-shadow: 0 0 14px rgba(255,51,51,.55),3px 3px 0 #000; }
+#cover .ornament { color: #aa8855; font-size: 20px; letter-spacing: 6px; margin: 10px 0 18px; }
+#cover .chapters { color: #e8c98a; font-size: 14px; line-height: 2; letter-spacing: 2px; }
+#cover .updated { color: #777; font-size: 11px; letter-spacing: 2px; margin-top: 22px; }
+
+.group-hdr { color: #d4a35a; font-size: 14px; letter-spacing: 2px; padding: 6px 10px; background: #0a0014; border: 1px solid #663399; border-radius: 4px; margin: 18px 0 10px; }
+.group-hdr .cnt { color: #888; font-size: 11px; }
+.team-grid { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { background: #0a0a14; border: 1px solid #2a2a4a; border-radius: 4px; padding: 4px 10px; font-size: 13px; color: #ddd; }
+.chip .cv { color: #7fd4ff; font-size: 11px; font-weight: bold; }
+
+.champ-banner { border: 3px solid #ffd700; border-radius: 12px; background: #14100a; text-align: center; padding: 16px; margin: 6px 0 20px; }
 .champ-banner .lb { color: #d4a35a; font-size: 12px; letter-spacing: 3px; }
-.champ-banner .nm { color: #ffd700; font-size: 30px; font-weight: bold; }
-h2 { color: #ffd700; font-size: 16px; letter-spacing: 3px; border-bottom: 2px solid #b8860b; padding-bottom: 6px; margin: 26px 0 12px; }
-.stat { color: #d4a35a; font-size: 14px; margin-bottom: 10px; }
-.stat b { color: #fff; }
+.champ-banner .nm { color: #ffd700; font-size: 32px; font-weight: bold; }
+
 .bk { display: flex; gap: 14px; align-items: stretch; overflow-x: auto; padding-bottom: 6px; }
-.bk .col { flex: 1 1 0; min-width: 160px; display: flex; flex-direction: column; justify-content: space-around; }
+.bk .col { flex: 1 1 0; min-width: 165px; display: flex; flex-direction: column; justify-content: space-around; }
 .bk h4 { color: #d4a35a; font-size: 11px; letter-spacing: 2px; text-align: center; margin-bottom: 6px; }
-.bk .match { background: #0a0a14; border: 2px solid #1a3a8a; border-radius: 6px; margin: 4px 0; overflow: hidden; }
-.bk .mt { padding: 6px 8px; color: #ddd; font-size: 13px; border-bottom: 1px solid #10101a; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.bk .match { background: #0a0a14; border: 2px solid #1a3a8a; border-radius: 6px; margin: 5px 0; overflow: hidden; }
+.bk .mt { padding: 7px 9px; color: #ddd; font-size: 13px; border-bottom: 1px solid #10101a; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .bk .mt:last-child { border-bottom: none; }
 .bk .mt .sd { color: #d4a35a; font-size: 10px; font-weight: bold; margin-right: 5px; }
 .bk .mt.w { background: #0a2f0a; color: #4dff77; font-weight: bold; }
 .bk .mt.l { color: #663333; text-decoration: line-through; }
-.bk .champbox { border: 3px solid #ffd700; border-radius: 8px; background: #14100a; text-align: center; padding: 16px 6px; color: #ffd700; font-weight: bold; font-size: 15px; }
-.row { display: flex; gap: 8px; padding: 4px 2px; border-bottom: 1px solid #10101a; font-size: 14px; align-items: baseline; flex-wrap: wrap; }
-.row .n { color: #888; min-width: 52px; font-weight: bold; }
-.row .t { color: #ff8888; }
-.row .t.claim { color: #7fd4ff; }
-.row .lg { color: #666; font-size: 11px; }
-.row .jk { color: #cc9955; font-size: 12px; font-style: italic; }
-.row .cv { color: #7fd4ff; font-size: 12px; font-weight: bold; }
-.hist .row .win { color: #4dff77; font-weight: bold; }
-.hist .row .loss { color: #ff5555; font-weight: bold; }
+.bk .champbox { border: 3px solid #ffd700; border-radius: 8px; background: #14100a; text-align: center; padding: 18px 8px; color: #ffd700; font-weight: bold; font-size: 16px; }
+.cv { color: #7fd4ff; font-weight: bold; }
+
+.stat { color: #d4a35a; font-size: 14px; margin-bottom: 12px; }
+.stat b { color: #fff; }
+.row { display: flex; gap: 10px; padding: 6px 4px; border-bottom: 1px solid #10101a; font-size: 14px; align-items: baseline; flex-wrap: wrap; }
+.row .n { color: #888; min-width: 40px; font-weight: bold; }
+.row .win { color: #4dff77; font-weight: bold; }
+.row .loss { color: #ff5555; font-weight: bold; }
+.note { color: #666; font-size: 13px; margin: 10px 0; }
+
 table { width: 100%; border-collapse: collapse; margin-top: 6px; }
-th { color: #d4a35a; font-size: 11px; letter-spacing: 2px; text-align: left; padding: 6px 8px; border-bottom: 2px solid #b8860b; }
-td { padding: 5px 8px; border-bottom: 1px solid #10101a; color: #ddd; font-size: 13px; }
+th { color: #d4a35a; font-size: 11px; letter-spacing: 2px; text-align: left; padding: 6px 9px; border-bottom: 2px solid #b8860b; }
+td { padding: 6px 9px; border-bottom: 1px solid #10101a; color: #ddd; font-size: 13px; }
 td.w { color: #66ff99; font-weight: bold; } td.l { color: #ff5555; font-weight: bold; }
 td.rg { color: #ffd700; font-weight: bold; } td.st { color: #888; font-size: 11px; }
-.note { color: #666; font-size: 12px; margin: 8px 0; }
-.foot { text-align: center; color: #444; font-size: 11px; letter-spacing: 2px; margin-top: 40px; }
-.grave { max-height: 70vh; overflow-y: auto; border: 2px solid #1a3a8a; border-radius: 8px; padding: 8px 12px; background: #05050d; }
 </style>
 </head>
 <body>
-<div class="wrap">
-  <h1>⚽ FC 26 — THE TOURNAMENT OF 721</h1>
-  <div class="tag">721 TEAMS · ONE SURVIVAL RACE · ONLY 16 MAKE THE BRACKET · ONE CHAMPION</div>
-  <div id="champ"></div>
-  <div id="status" class="stat"></div>
-  <div id="bracket"></div>
-  <div id="season"></div>
-  <div id="records"></div>
-  <div id="grave"></div>
-  <div class="foot">LIVE ON TWITCH — kennysignguy9009</div>
-</div>
+<header>
+  <span class="brand">⚽ FC 26 BOOK</span>
+  <nav id="nav">
+    <button data-s="cover" class="active">COVER</button>
+    <button data-s="teams">THE TEAMS</button>
+    <button data-s="t16">CH.1 — THE TOURNAMENT</button>
+    <button data-s="season">CH.2 — SEASON</button>
+    <button data-s="records">CH.3 — WIN/LOSS RECORDS</button>
+  </nav>
+  <span class="readonly">READ-ONLY · LIVE BOOK</span>
+</header>
+<main>
+  <section id="cover" class="active">
+    <div class="book" onclick="show('t16')">
+      <h2>FC 26</h2>
+      <div class="ornament">⚽ ✦ ⚽ ✦ ⚽</div>
+      <div class="chapters">
+        THE TOURNAMENT OF 721<br>
+        ─────────────<br>
+        THE TEAMS<br>
+        CHAPTER 1 — THE TOURNAMENT<br>
+        CHAPTER 2 — THE SEASON<br>
+        CHAPTER 3 — WIN / LOSS RECORDS
+      </div>
+      <div class="updated" id="updated">TAP TO OPEN</div>
+    </div>
+  </section>
+  <section id="teams">
+    <h1 class="page-title">THE TEAMS</h1>
+    <div class="page-sub" id="teamsSub">EVERY CLUB AND NATIONAL TEAM IN FC 26</div>
+    <div id="teamsBody"></div>
+  </section>
+  <section id="t16">
+    <h1 class="page-title">CHAPTER 1 — THE TOURNAMENT</h1>
+    <div class="page-sub">16 SURVIVORS · SEEDED BRACKET · ONE CHAMPION</div>
+    <div id="t16Body"></div>
+  </section>
+  <section id="season">
+    <h1 class="page-title">CHAPTER 2 — THE SEASON</h1>
+    <div class="page-sub">THE CHAMPION DEFENDS AGAINST THE WORLD — ONE SHOT EACH</div>
+    <div id="seasonBody"></div>
+  </section>
+  <section id="records">
+    <h1 class="page-title">CHAPTER 3 — WIN / LOSS RECORDS</h1>
+    <div class="page-sub">TITLE MATCHES ONLY — WINS, LOSSES, DEFENSES, REIGNS</div>
+    <div id="recordsBody"></div>
+  </section>
+</main>
 <script>
 const SEED_LAYOUT = [1, 16, 8, 9, 5, 12, 4, 13, 6, 11, 3, 14, 7, 10, 2, 15];
-let TEAMS_BY_ID = {}, TAGS = {}, TOTAL = 721;
+let TEAMS_BY_ID = {}, TAGS = {}, LEAGUES = [], TOTAL = 721;
 function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;'); }
 function tname(id) { const t = TEAMS_BY_ID[id]; return t ? t.name : String(id || '?').split(':').pop(); }
 function tleague(id) { const t = TEAMS_BY_ID[id]; return t ? t.league : ''; }
 function tagOf(id) { return TAGS[id] || null; }
-async function j(p) { try { return await (await fetch(p + '?v=' + Date.now())).json(); } catch (e) { return null; } }
+function tagHtml(id) { return tagOf(id) ? ' <span class="cv">[' + esc(tagOf(id)) + ']</span>' : ''; }
+function show(s) {
+  document.querySelectorAll('section').forEach(x => x.classList.remove('active'));
+  document.getElementById(s).classList.add('active');
+  document.querySelectorAll('nav button').forEach(b => b.classList.toggle('active', b.dataset.s === s));
+}
+document.getElementById('nav').addEventListener('click', e => { if (e.target.dataset.s) show(e.target.dataset.s); });
+async function j(p) { try { const r = await fetch(p + '?v=' + Date.now()); const lm = r.headers.get('last-modified'); return { d: await r.json(), lm: lm }; } catch (e) { return { d: null }; } }
 
 (async function main() {
-  const teams = await j('data/teams.json');
-  const state = await j('data/state.json');
-  const claims = await j('data/claims_state.json');
+  const tj = await j('data/teams.json');
+  const sj = await j('data/state.json');
+  const cj = await j('data/claims_state.json');
+  const teams = tj.d, state = sj.d, claims = cj.d;
+
+  if (sj.lm) document.getElementById('updated').textContent = 'UPDATED ' + new Date(sj.lm).toLocaleDateString() + ' · TAP TO OPEN';
+
+  const byLeague = {};
   if (teams) {
-    (teams.nationals || []).forEach(n => { TEAMS_BY_ID['n:' + n.name] = { name: n.name, league: 'INTERNATIONAL TEAMS' }; });
-    (teams.clubs || []).forEach(c => { TEAMS_BY_ID['c:' + (c.league || '?') + ':' + c.name] = { name: c.name, league: c.league || 'Other' }; });
+    (teams.nationals || []).forEach(n => {
+      const id = 'n:' + n.name;
+      TEAMS_BY_ID[id] = { name: n.name, league: 'INTERNATIONAL TEAMS' };
+      (byLeague['INTERNATIONAL TEAMS'] = byLeague['INTERNATIONAL TEAMS'] || []).push(id);
+    });
+    (teams.clubs || []).forEach(c => {
+      const lg = c.league || 'Other', id = 'c:' + lg + ':' + c.name;
+      TEAMS_BY_ID[id] = { name: c.name, league: lg };
+      (byLeague[lg] = byLeague[lg] || []).push(id);
+    });
     TOTAL = Object.keys(TEAMS_BY_ID).length || 721;
   }
   if (claims) (claims.claims || []).forEach(c => { if (c.teamId && c.viewer) TAGS[c.teamId] = c.viewer; });
-  if (!state || !state.draw) { document.getElementById('status').innerHTML = 'The tournament has not started yet.'; return; }
 
-  const elim = state.draw.eliminated || [];
-  const jokes = state.draw.jokes || [];
+  // ---- THE TEAMS ----
+  const lgs = Object.keys(byLeague).sort((a, b) => a === 'INTERNATIONAL TEAMS' ? -1 : b === 'INTERNATIONAL TEAMS' ? 1 : a.localeCompare(b));
+  document.getElementById('teamsSub').textContent = TOTAL + ' TEAMS · ' + lgs.length + ' LEAGUES · VIEWER-CLAIMED TEAMS IN BLUE';
+  document.getElementById('teamsBody').innerHTML = lgs.map(lg =>
+    '<div class="group-hdr">' + esc(lg) + ' <span class="cnt">(' + byLeague[lg].length + ')</span></div>' +
+    '<div class="team-grid">' + byLeague[lg].map(id =>
+      '<span class="chip">' + esc(tname(id)) + tagHtml(id) + '</span>').join('') + '</div>'
+  ).join('');
+
+  if (!state || !state.draw) {
+    document.getElementById('t16Body').innerHTML = '<div class="note">The tournament has not started yet.</div>';
+    document.getElementById('seasonBody').innerHTML = '<div class="note">No season yet.</div>';
+    document.getElementById('recordsBody').innerHTML = '<div class="note">No title matches yet.</div>';
+    return;
+  }
+
   const slots = state.draw.slots || [];
   const results = (state.results && state.results.t16) || {};
-  const alive = TOTAL - elim.length;
   const seeded = slots.filter(Boolean).length;
-
-  // bracket helpers (same pairing as the book: 1v16, 8v9, 5v12, 4v13 / 6v11, 3v14, 7v10, 2v15)
   const arr = SEED_LAYOUT.map(s => slots[s - 1] || null);
   const winnerOf = (r, m) => results[r + '_' + m] || null;
   function participant(r, m, side) { return r === 0 ? arr[2 * m + side] : winnerOf(r - 1, 2 * m + side); }
   const tourChamp = winnerOf(3, 0);
   const seedOf = id => { const i = slots.indexOf(id); return i < 0 ? null : i + 1; };
-
   const season = state.season || null;
   const beltHolder = season ? season.champion : tourChamp;
 
-  // CHAMPION banner
+  // ---- CH.1 THE TOURNAMENT ----
+  let h = '';
   if (beltHolder) {
-    document.getElementById('champ').innerHTML =
-      '<div class="champ-banner"><div class="lb">' + (season ? 'SEASON ' + (season.seasonNum || 1) + ' — REIGNING CHAMPION' : '🏆 TOURNAMENT CHAMPION 🏆') + '</div>' +
-      '<div class="nm">' + esc(tname(beltHolder)) + (tagOf(beltHolder) ? ' <span style="font-size:16px;color:#7fd4ff;">[' + esc(tagOf(beltHolder)) + ']</span>' : '') + '</div></div>';
+    h += '<div class="champ-banner"><div class="lb">' + (season ? 'SEASON ' + (season.seasonNum || 1) + ' — REIGNING CHAMPION' : '🏆 TOURNAMENT CHAMPION 🏆') + '</div>' +
+      '<div class="nm">' + esc(tname(beltHolder)) + tagHtml(beltHolder) + '</div></div>';
   }
-
-  // status line
-  document.getElementById('status').innerHTML =
-    'TEAMS <b>' + TOTAL + '</b> &nbsp;·&nbsp; ELIMINATED <b>' + elim.length + '</b> &nbsp;·&nbsp; STILL ALIVE <b>' + alive + '</b>' +
-    (seeded ? ' &nbsp;·&nbsp; SEEDED <b>' + seeded + '/16</b>' : '');
-
-  // bracket
   if (seeded === 16) {
     const names = ['ROUND OF 16', 'QUARTER-FINALS', 'SEMI-FINALS', 'THE FINAL'];
-    let h = '<h2>📖 CHAPTER 1 — THE TOURNAMENT OF 16</h2><div class="bk">';
+    h += '<div class="bk">';
     for (let r = 0; r < 4; r++) {
       h += '<div class="col"><h4>' + names[r] + '</h4>';
       const matches = 16 >> (r + 1);
@@ -121,32 +203,34 @@ async function j(p) { try { return await (await fetch(p + '?v=' + Date.now())).j
         h += '<div class="match">' + [pa, pb].map(pid => {
           if (!pid) return '<div class="mt" style="color:#444;">— TBD —</div>';
           const cls = w ? (w === pid ? ' w' : ' l') : '';
-          return '<div class="mt' + cls + '"><span class="sd">#' + (seedOf(pid) || '') + '</span>' + esc(tname(pid)) +
-            (tagOf(pid) ? ' <span class="cv">[' + esc(tagOf(pid)) + ']</span>' : '') + '</div>';
+          return '<div class="mt' + cls + '"><span class="sd">#' + (seedOf(pid) || '') + '</span>' + esc(tname(pid)) + tagHtml(pid) + '</div>';
         }).join('') + '</div>';
       }
       h += '</div>';
     }
     h += '<div class="col"><h4>🏆 CHAMPION</h4><div class="champbox">' + (tourChamp ? esc(tname(tourChamp)) : 'WINNER LANDS HERE') + '</div></div></div>';
-    document.getElementById('bracket').innerHTML = h;
+  } else {
+    h += '<div class="note">The final 16 are not set yet — the elimination race decides who makes the bracket. ' +
+      (TOTAL - (state.draw.eliminated || []).length) + ' teams still alive.</div>';
   }
+  document.getElementById('t16Body').innerHTML = h;
 
-  // season
+  // ---- CH.2 SEASON ----
   if (season) {
-    let h = '<h2>📖 CHAPTER 2 — SEASON ' + (season.seasonNum || 1) + '</h2>' +
-      '<div class="stat">CHAMPION <b>' + esc(tname(season.champion)) + '</b> &nbsp;·&nbsp; DEFENSE #<b>' + ((season.history || []).length + 1) + '</b></div>' +
-      '<div class="hist">';
-    (season.history || []).slice().reverse().forEach((e, ix) => {
-      h += '<div class="row"><span class="n">#' + ((season.history || []).length - ix) + '</span>' +
-        '<span>' + (e.rematch ? '🔁 ' : '') + esc(tname(e.champion)) + ' vs ' + esc(tname(e.opponent)) + '</span>' +
-        (e.champWon ? '<span class="win">CHAMP RETAINED</span>' : '<span class="loss">NEW CHAMPION: ' + esc(tname(e.opponent)) + '</span>') + '</div>';
-    });
-    if (!(season.history || []).length) h += '<div class="note">No title matches yet — the season is just beginning.</div>';
-    h += '</div>';
-    document.getElementById('season').innerHTML = h;
+    let sh = '<div class="stat">CHAMPION <b>' + esc(tname(season.champion)) + '</b>' + tagHtml(season.champion) +
+      ' &nbsp;·&nbsp; DEFENSE #<b>' + ((season.history || []).length + 1) + '</b></div>';
+    const hist = season.history || [];
+    sh += hist.slice().reverse().map((e, ix) =>
+      '<div class="row"><span class="n">#' + (hist.length - ix) + '</span>' +
+      '<span>' + (e.rematch ? '🔁 ' : '') + esc(tname(e.champion)) + ' vs ' + esc(tname(e.opponent)) + '</span>' +
+      (e.champWon ? '<span class="win">CHAMP RETAINED</span>' : '<span class="loss">NEW CHAMPION: ' + esc(tname(e.opponent)) + '</span>') + '</div>').join('');
+    if (!hist.length) sh += '<div class="note">No title matches yet — the season is just beginning.</div>';
+    document.getElementById('seasonBody').innerHTML = sh;
+  } else {
+    document.getElementById('seasonBody').innerHTML = '<div class="note">The season begins once the tournament crowns its champion.</div>';
   }
 
-  // records — title matches only
+  // ---- CH.3 RECORDS ----
   const rec = {};
   const R = id => rec[id] || (rec[id] = { w: 0, l: 0, defenses: 0, reigns: 0 });
   if (tourChamp) R(tourChamp).reigns++;
@@ -157,35 +241,18 @@ async function j(p) { try { return await (await fetch(p + '?v=' + Date.now())).j
   const ids = Object.keys(rec);
   if (ids.length) {
     ids.sort((a, b) => (rec[b].reigns - rec[a].reigns) || (rec[b].w - rec[a].w));
-    let h = '<h2>📖 CHAPTER 3 — WIN / LOSS RECORDS (TITLE MATCHES ONLY)</h2><table>' +
-      '<tr><th>TEAM</th><th>LEAGUE</th><th>W</th><th>L</th><th>DEFENSES</th><th>TITLE REIGNS</th><th>STATUS</th></tr>';
-    ids.forEach(id => {
-      const r = rec[id];
-      h += '<tr><td>' + esc(tname(id)) + (tagOf(id) ? ' <span class="cv">[' + esc(tagOf(id)) + ']</span>' : '') + '</td>' +
-        '<td style="color:#888;">' + esc(tleague(id)) + '</td>' +
-        '<td class="w">' + r.w + '</td><td class="l">' + r.l + '</td>' +
-        '<td class="rg">' + (r.defenses || '') + '</td><td class="rg">' + (r.reigns || '') + '</td>' +
-        '<td class="st">' + (id === beltHolder ? '👑 CHAMPION' : '') + '</td></tr>';
-    });
-    h += '</table>';
-    document.getElementById('records').innerHTML = h;
-  }
-
-  // the graveyard — every elimination, position numbers counting down from the full field
-  if (elim.length) {
-    let h = '<h2>☠ THE ELIMINATION RACE — THE FALLEN (' + elim.length + ')</h2>' +
-      '<div class="note">First team out finished #' + TOTAL + ' — the number IS the finishing position. Viewer-claimed teams show in blue.</div>' +
-      '<div class="grave">';
-    for (let i = elim.length - 1; i >= 0; i--) {
-      const id = elim[i], jk = jokes[i];
-      h += '<div class="row"><span class="n">#' + (TOTAL - i) + '</span>' +
-        '<span class="t' + (tagOf(id) ? ' claim' : '') + '">' + esc(tname(id)) +
-        (tagOf(id) ? ' <span class="cv">[' + esc(tagOf(id)) + ']</span>' : '') + '</span>' +
-        '<span class="lg">(' + esc(tleague(id)) + ')</span>' +
-        (jk ? '<span class="jk">— ' + esc(jk) + '</span>' : '') + '</div>';
-    }
-    h += '</div>';
-    document.getElementById('grave').innerHTML = h;
+    document.getElementById('recordsBody').innerHTML = '<table>' +
+      '<tr><th>#</th><th>TEAM</th><th>LEAGUE</th><th>W</th><th>L</th><th>DEFENSES</th><th>TITLE REIGNS</th><th>STATUS</th></tr>' +
+      ids.map((id, i) => {
+        const r = rec[id];
+        return '<tr><td>' + (i + 1) + '</td><td>' + esc(tname(id)) + tagHtml(id) + '</td>' +
+          '<td style="color:#888;">' + esc(tleague(id)) + '</td>' +
+          '<td class="w">' + r.w + '</td><td class="l">' + r.l + '</td>' +
+          '<td class="rg">' + (r.defenses || '') + '</td><td class="rg">' + (r.reigns || '') + '</td>' +
+          '<td class="st">' + (id === beltHolder ? '👑 CHAMPION' : '') + '</td></tr>';
+      }).join('') + '</table>';
+  } else {
+    document.getElementById('recordsBody').innerHTML = '<div class="note">Records fill in as title matches happen — wins, losses, defenses, and reigns, exactly like the book.</div>';
   }
 })();
 </script>
