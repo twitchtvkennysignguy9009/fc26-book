@@ -88,7 +88,7 @@ td.rg { color: #ffd700; font-weight: bold; } td.st { color: #888; font-size: 11p
       <h2>FC 26</h2>
       <div class="ornament">⚽ ✦ ⚽ ✦ ⚽</div>
       <div class="chapters">
-        THE TOURNAMENT OF 721<br>
+        <span id="coverTotal">THE TOURNAMENT OF 749</span><br>
         ─────────────<br>
         THE TEAMS<br>
         CHAPTER 1 — THE TOURNAMENT<br>
@@ -161,6 +161,7 @@ async function j(p) { try { const r = await fetch(p + '?v=' + Date.now()); const
 
   // ---- THE TEAMS ----
   const lgs = Object.keys(byLeague).sort((a, b) => a === 'INTERNATIONAL TEAMS' ? -1 : b === 'INTERNATIONAL TEAMS' ? 1 : a.localeCompare(b));
+  document.getElementById('coverTotal').textContent = 'THE TOURNAMENT OF ' + TOTAL;
   document.getElementById('teamsSub').textContent = TOTAL + ' TEAMS · ' + lgs.length + ' LEAGUES · VIEWER-CLAIMED TEAMS IN BLUE';
   document.getElementById('teamsBody').innerHTML = lgs.map(lg =>
     '<div class="group-hdr">' + esc(lg) + ' <span class="cnt">(' + byLeague[lg].length + ')</span></div>' +

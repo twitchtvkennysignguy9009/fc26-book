@@ -100,62 +100,6 @@
    "teamId": "n:United States",
    "paid": false,
    "jp": true
-  },
-  {
-   "key": "mk500|dylanapproved",
-   "m": 221,
-   "mark": 500,
-   "viewer": "Dylanapproved",
-   "teamName": "Belgium",
-   "teamId": "n:Belgium",
-   "paid": false
-  },
-  {
-   "key": "mk500|lobster_heat",
-   "m": 221,
-   "mark": 500,
-   "viewer": "lobster_heat",
-   "teamName": "FC Barcelona",
-   "teamId": "c:LALIGA EA SPORTS:FC Barcelona",
-   "paid": false
-  },
-  {
-   "key": "mk500|kennysignguy9009",
-   "m": 221,
-   "mark": 500,
-   "viewer": "kennysignguy9009",
-   "teamName": "United States",
-   "teamId": "n:United States",
-   "paid": false,
-   "jp": true
-  },
-  {
-   "key": "mk400|dylanapproved",
-   "m": 321,
-   "mark": 400,
-   "viewer": "Dylanapproved",
-   "teamName": "Belgium",
-   "teamId": "n:Belgium",
-   "paid": false
-  },
-  {
-   "key": "mk400|lobster_heat",
-   "m": 321,
-   "mark": 400,
-   "viewer": "lobster_heat",
-   "teamName": "FC Barcelona",
-   "teamId": "c:LALIGA EA SPORTS:FC Barcelona",
-   "paid": false
-  },
-  {
-   "key": "mk400|kennysignguy9009",
-   "m": 321,
-   "mark": 400,
-   "viewer": "kennysignguy9009",
-   "teamName": "United States",
-   "teamId": "n:United States",
-   "paid": false,
-   "jp": true
   }
  ]
 }
