@@ -120,6 +120,7 @@ td.rg { color: #ffd700; font-weight: bold; } td.st { color: #888; font-size: 11p
   </section>
 </main>
 <script>
+const LEAGUE_COUNTRY = {"2. Bundesliga":"Germany","3. Liga":"Germany","Bundesliga":"Germany","3F Superliga":"Denmark","A-League Men":"Australia","Allsvenskan":"Sweden","Austrian Bundesliga":"Austria","Belgian Pro League":"Belgium","CONMEBOL Libertadores":"South America","CONMEBOL Sudamericana":"South America","Chinese Super League":"China","EFL Championship":"England","EFL League One":"England","EFL League Two":"England","Premier League":"England","Eliteserien":"Norway","Eredivisie":"Netherlands","Indian Super League":"India","K League 1":"South Korea","LALIGA EA SPORTS":"Spain","LALIGA HYPERMOTION":"Spain","League of Ireland Premier Division":"Ireland","Liga Portugal":"Portugal","Liga Profesional de Fútbol":"Argentina","Ligue 1 McDonald's":"France","Ligue 2 BKT":"France","Major League Soccer":"USA / Canada","PKO BP Ekstraklasa":"Poland","ROSHN Saudi League":"Saudi Arabia","Rest of World":"Rest of World","Scottish Premiership":"Scotland","Serie A Enilive":"Italy","Serie BKT":"Italy","SuperLiga":"Romania","Swiss Super League":"Switzerland","Trendyol Süper Lig":"Türkiye"};
 const SEED_LAYOUT = [1, 16, 8, 9, 5, 12, 4, 13, 6, 11, 3, 14, 7, 10, 2, 15];
 let TEAMS_BY_ID = {}, TAGS = {}, LEAGUES = [], TOTAL = 721;
 function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;'); }
@@ -148,21 +149,22 @@ async function j(p) { try { const r = await fetch(p + '?v=' + Date.now()); const
     (teams.nationals || []).forEach(n => {
       const id = 'n:' + n.name;
       TEAMS_BY_ID[id] = { name: n.name, league: 'INTERNATIONAL TEAMS' };
-      (byLeague['INTERNATIONAL TEAMS'] = byLeague['INTERNATIONAL TEAMS'] || []).push(id);
+      (byLeague['International'] = byLeague['International'] || []).push(id);
     });
     (teams.clubs || []).forEach(c => {
       const lg = c.league || 'Other', id = 'c:' + lg + ':' + c.name;
-      TEAMS_BY_ID[id] = { name: c.name, league: lg };
-      (byLeague[lg] = byLeague[lg] || []).push(id);
+      TEAMS_BY_ID[id] = { name: c.name, league: LEAGUE_COUNTRY[lg] || lg };
+      const ctry = LEAGUE_COUNTRY[lg] || lg;
+      (byLeague[ctry] = byLeague[ctry] || []).push(id);
     });
     TOTAL = Object.keys(TEAMS_BY_ID).length || 721;
   }
   if (claims) (claims.claims || []).forEach(c => { if (c.teamId && c.viewer) TAGS[c.teamId] = c.viewer; });
 
   // ---- THE TEAMS ----
-  const lgs = Object.keys(byLeague).sort((a, b) => a === 'INTERNATIONAL TEAMS' ? -1 : b === 'INTERNATIONAL TEAMS' ? 1 : a.localeCompare(b));
+  const lgs = Object.keys(byLeague).sort((a, b) => a === 'International' ? -1 : b === 'International' ? 1 : a.localeCompare(b));
   document.getElementById('coverTotal').textContent = 'THE TOURNAMENT OF ' + TOTAL;
-  document.getElementById('teamsSub').textContent = TOTAL + ' TEAMS · ' + lgs.length + ' LEAGUES · VIEWER-CLAIMED TEAMS IN BLUE';
+  document.getElementById('teamsSub').textContent = TOTAL + ' TEAMS · ' + lgs.length + ' COUNTRIES · VIEWER-CLAIMED TEAMS IN BLUE';
   document.getElementById('teamsBody').innerHTML = lgs.map(lg =>
     '<div class="group-hdr">' + esc(lg) + ' <span class="cnt">(' + byLeague[lg].length + ')</span></div>' +
     '<div class="team-grid">' + byLeague[lg].map(id =>
