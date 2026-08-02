@@ -2,6 +2,8 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>FC 26 Book</title>
 <style>
@@ -148,7 +150,7 @@ async function j(p) { try { const r = await fetch(p + '?v=' + Date.now()); const
   if (teams) {
     (teams.nationals || []).forEach(n => {
       const id = 'n:' + n.name;
-      TEAMS_BY_ID[id] = { name: n.name, league: 'INTERNATIONAL TEAMS' };
+      TEAMS_BY_ID[id] = { name: n.name, league: 'International' };
       (byLeague['International'] = byLeague['International'] || []).push(id);
     });
     (teams.clubs || []).forEach(c => {
