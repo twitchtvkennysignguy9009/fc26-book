@@ -307,7 +307,12 @@
       "c:Serie BKT:Padova",
       "c:Premier League:Liverpool",
       "c:Allsvenskan:Malmö FF",
-      "c:Ligue 1 McDonald's:Angers SCO"
+      "c:Ligue 1 McDonald's:Angers SCO",
+      "c:EFL League One:Cardiff City",
+      "c:3F Superliga:FC København",
+      "c:Chinese Super League:Shanghai Shenhua",
+      "c:CONMEBOL Libertadores:Junior de Barranquilla",
+      "c:Serie A Enilive:Cagliari"
     ],
     "slots": [
       null,
@@ -722,12 +727,7 @@
       420,
       546,
       229,
-      327,
-      514,
-      393,
-      536,
-      633,
-      255
+      327
     ],
     "jokes": [
       "The doorbuster busted them at the door",
@@ -1035,7 +1035,12 @@
       "Folded like a lawn chair",
       "The team-building exercise disbanded the team",
       "The relay baton is still on the ground",
-      "Sunk — that was their battleship"
+      "Sunk — that was their battleship",
+      "Evaporated like a puddle in July",
+      "Their garden gnome saw it coming and said nothing",
+      "The wheel took their lunch money AND their spot",
+      "The band stopped playing as soon as their name came up",
+      "The squeaky wheel got eliminated, not greased"
     ]
   },
   "results": {},
