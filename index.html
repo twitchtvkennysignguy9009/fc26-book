@@ -215,7 +215,7 @@ async function j(p) { try { const r = await fetch(p + '?v=' + Date.now()); const
     }
     h += '<div class="col"><h4>🏆 CHAMPION</h4><div class="champbox">' + (tourChamp ? esc(tname(tourChamp)) : 'WINNER LANDS HERE') + '</div></div></div>';
   } else {
-    h += '<div class="note">The final 16 are not set yet — the elimination race decides who makes the bracket. ' +
+    h += '<div class="note">The final 16 are not set yet — the claw machine decides who makes the bracket. ' +
       (TOTAL - (state.draw.eliminated || []).length) + ' teams still alive.</div>';
   }
   document.getElementById('t16Body').innerHTML = h;
