@@ -2,19 +2,23 @@
  "claims": [
   {
    "viewer": "Dylanapproved",
-   "teamId": "n:Belgium"
+   "teamId": "n:Belgium",
+   "safe": true
   },
   {
    "viewer": "lobster_heat",
-   "teamId": "c:LALIGA EA SPORTS:FC Barcelona"
+   "teamId": "c:LALIGA EA SPORTS:FC Barcelona",
+   "safe": true
   },
   {
    "viewer": "kennysignguy9009",
-   "teamId": "n:United States"
+   "teamId": "n:United States",
+   "safe": true
   },
   {
    "viewer": "themeatballmaster",
-   "teamId": "n:Germany"
+   "teamId": "n:Germany",
+   "safe": false
   }
  ],
  "owed": [
@@ -47,6 +51,15 @@
    "jp": true
   },
   {
+   "key": "mk721|themeatballmaster",
+   "m": 21,
+   "mark": 721,
+   "viewer": "themeatballmaster",
+   "teamName": "Germany",
+   "teamId": "n:Germany",
+   "paid": false
+  },
+  {
    "key": "mk700|dylanapproved",
    "m": 21,
    "mark": 700,
@@ -73,15 +86,6 @@
    "teamId": "n:United States",
    "paid": false,
    "jp": true
-  },
-  {
-   "key": "mk721|themeatballmaster",
-   "m": 21,
-   "mark": 721,
-   "viewer": "themeatballmaster",
-   "teamName": "Germany",
-   "teamId": "n:Germany",
-   "paid": false
   },
   {
    "key": "mk700|themeatballmaster",
@@ -176,6 +180,25 @@
    "paid": false
   },
   {
+   "key": "mk400|lobster_heat",
+   "m": 321,
+   "mark": 400,
+   "viewer": "lobster_heat",
+   "teamName": "FC Barcelona",
+   "teamId": "c:LALIGA EA SPORTS:FC Barcelona",
+   "paid": false
+  },
+  {
+   "key": "mk400|kennysignguy9009",
+   "m": 321,
+   "mark": 400,
+   "viewer": "kennysignguy9009",
+   "teamName": "United States",
+   "teamId": "n:United States",
+   "paid": false,
+   "jp": true
+  },
+  {
    "key": "mk400|themeatballmaster",
    "m": 321,
    "mark": 400,
@@ -194,6 +217,25 @@
    "paid": false
   },
   {
+   "key": "mk300|lobster_heat",
+   "m": 421,
+   "mark": 300,
+   "viewer": "lobster_heat",
+   "teamName": "FC Barcelona",
+   "teamId": "c:LALIGA EA SPORTS:FC Barcelona",
+   "paid": false
+  },
+  {
+   "key": "mk300|kennysignguy9009",
+   "m": 421,
+   "mark": 300,
+   "viewer": "kennysignguy9009",
+   "teamName": "United States",
+   "teamId": "n:United States",
+   "paid": false,
+   "jp": true
+  },
+  {
    "key": "mk300|themeatballmaster",
    "m": 421,
    "mark": 300,
@@ -203,40 +245,61 @@
    "paid": false
   },
   {
-   "key": "mk200|dylanapproved",
+   "key": "mk200|lobster_heat",
    "m": 521,
    "mark": 200,
-   "viewer": "Dylanapproved",
-   "teamName": "Belgium",
-   "teamId": "n:Belgium",
+   "viewer": "lobster_heat",
+   "teamName": "FC Barcelona",
+   "teamId": "c:LALIGA EA SPORTS:FC Barcelona",
    "paid": false
   },
   {
-   "key": "mk200|themeatballmaster",
+   "key": "mk200|kennysignguy9009",
    "m": 521,
    "mark": 200,
-   "viewer": "themeatballmaster",
-   "teamName": "Germany",
-   "teamId": "n:Germany",
+   "viewer": "kennysignguy9009",
+   "teamName": "United States",
+   "teamId": "n:United States",
+   "paid": false,
+   "jp": true
+  },
+  {
+   "key": "mk100|lobster_heat",
+   "m": 621,
+   "mark": 100,
+   "viewer": "lobster_heat",
+   "teamName": "FC Barcelona",
+   "teamId": "c:LALIGA EA SPORTS:FC Barcelona",
    "paid": false
   },
   {
-   "key": "mk100|dylanapproved",
+   "key": "mk100|kennysignguy9009",
    "m": 621,
    "mark": 100,
-   "viewer": "Dylanapproved",
-   "teamName": "Belgium",
-   "teamId": "n:Belgium",
+   "viewer": "kennysignguy9009",
+   "teamName": "United States",
+   "teamId": "n:United States",
+   "paid": false,
+   "jp": true
+  },
+  {
+   "key": "mk16|lobster_heat",
+   "m": 705,
+   "mark": 16,
+   "viewer": "lobster_heat",
+   "teamName": "FC Barcelona",
+   "teamId": "c:LALIGA EA SPORTS:FC Barcelona",
    "paid": false
   },
   {
-   "key": "mk100|themeatballmaster",
-   "m": 621,
-   "mark": 100,
-   "viewer": "themeatballmaster",
-   "teamName": "Germany",
-   "teamId": "n:Germany",
-   "paid": false
+   "key": "mk16|kennysignguy9009",
+   "m": 705,
+   "mark": 16,
+   "viewer": "kennysignguy9009",
+   "teamName": "United States",
+   "teamId": "n:United States",
+   "paid": false,
+   "jp": true
   }
  ]
 }
