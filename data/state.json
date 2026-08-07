@@ -1845,8 +1845,35 @@
       "pending": null
     }
   },
-  "results": {},
-  "season": null,
+  "results": {
+    "t16": {
+      "0_0": "c:LALIGA EA SPORTS:FC Barcelona",
+      "0_1": "c:Ligue 1 McDonald's:Olympique Lyonnais",
+      "0_2": "c:3. Liga:Alemannia Aachen",
+      "0_3": "n:Iran",
+      "0_4": "c:A-League Men:Brisbane Roar",
+      "0_5": "c:3. Liga:1. FC Saarbrücken",
+      "0_6": "c:2. Bundesliga:Dynamo Dresden",
+      "0_7": "n:United States",
+      "1_0": "c:LALIGA EA SPORTS:FC Barcelona",
+      "1_1": "c:3. Liga:Alemannia Aachen",
+      "1_2": "c:3. Liga:1. FC Saarbrücken",
+      "1_3": "n:United States",
+      "2_0": "c:LALIGA EA SPORTS:FC Barcelona",
+      "2_1": "n:United States",
+      "3_0": "c:LALIGA EA SPORTS:FC Barcelona"
+    }
+  },
+  "season": {
+    "champion": "c:LALIGA EA SPORTS:FC Barcelona",
+    "faced": [],
+    "loserSide": [],
+    "rematchPool": [],
+    "history": [],
+    "seasonNum": 1,
+    "pending": null,
+    "pendingType": null
+  },
   "raceCadence": 15,
   "voiceMode": 1
 }
